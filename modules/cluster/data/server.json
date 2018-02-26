@@ -1,0 +1,79 @@
+[
+  {
+    "name": "drone-server",
+    "image": "drone/drone:0.8.4",
+    "memoryReservation": 128,
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${awslogs_group}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "portMappings": [
+      {
+        "hostPort": 8000,
+        "protocol": "tcp",
+        "containerPort": 8000
+      },
+      {
+        "hostPort": 9000,
+        "protocol": "tcp",
+        "containerPort": 9000
+      }
+    ],
+    "environment": [
+      {
+        "name": "DRONE_ADMIN",
+        "value": "${drone_admin}"
+      },
+      {
+        "name": "DRONE_GITHUB",
+        "value": "true"
+      },
+      {
+        "name": "DRONE_GITHUB_CLIENT",
+        "value": "${drone_github_client}"
+      },
+      {
+        "name": "DRONE_GITHUB_SECRET",
+        "value": "${drone_github_secret}"
+      },
+      {
+        "name": "DRONE_HOST",
+        "value": "${drone_host}"
+      },
+      {
+        "name": "DRONE_OPEN",
+        "value": "${drone_open}"
+      },
+      {
+        "name": "DRONE_ORGS",
+        "value": "${drone_orgs}"
+      },
+      {
+        "name": "DRONE_SECRET",
+        "value": "${drone_secret}"
+      },
+      {
+        "name": "DRONE_DATABASE_DRIVER",
+        "value": "mysql"
+      },
+      {
+        "name": "DRONE_DATABASE_DATASOURCE",
+        "value":
+          "${drone_db_username}:${drone_db_password}@tcp(${drone_db_endpoint}:3306)/drone?parseTime=true"
+      },
+      {
+        "name": "DRONE_GITHUB_CONTEXT",
+        "value": "drone"
+      },
+      {
+        "name": "DRONE_DEBUG",
+        "value": "true"
+      }
+    ]
+  }
+]

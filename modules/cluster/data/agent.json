@@ -1,0 +1,38 @@
+[
+    {
+        "name": "drone-agent",
+        "image": "drone/agent:0.8.4",
+        "memoryReservation": 128,
+        "essential": true,
+        "privileged": true,
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${awslogs_group}",
+                "awslogs-region": "${aws_region}",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "portMappings": [],
+        "environment": [
+            {
+                "name": "DRONE_SECRET",
+                "value": "${drone_secret}"
+            },
+            {
+                "name": "DRONE_SERVER",
+                "value": "${drone_server}:9000"
+            },
+            {
+                "name": "DRONE_DEBUG",
+                "value": "true"
+            }
+        ],
+        "mountPoints": [
+            {
+                "containerPath": "/var/run/docker.sock",
+                "sourceVolume": "dockerd"
+            }
+        ]
+    }
+]
