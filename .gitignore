@@ -8,9 +8,6 @@
 # Module directory
 .terraform/
 
-### Terraform Patch ###
-*.tfvars
-
 # End of https://www.gitignore.io/api/terraform
 
 secrets.tfvars
